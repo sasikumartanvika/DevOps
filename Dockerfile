@@ -1,12 +1,14 @@
-
-# Use Python official image
 FROM python:3.12-slim
 
-# Set working directory
 WORKDIR /app
 
-# Copy Python file into container
 COPY python.py .
 
-# Run the Python program
-CMD ["python", "python.py"]
+# Generate the webpage
+RUN python python.py
+
+# Tell Docker the application uses port 8000
+EXPOSE 8000
+
+# Keep the container running with a web server
+CMD ["python", "-m", "http.server", "8000"]
